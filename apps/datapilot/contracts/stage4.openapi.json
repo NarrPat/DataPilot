@@ -1,0 +1,312 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DataPilot contract components (no API routes yet)",
+    "version": "1"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Category": {
+        "enum": [
+          "books",
+          "electronics",
+          "apparel",
+          "food",
+          "home",
+          "sports",
+          "beauty",
+          "toys"
+        ],
+        "title": "Category",
+        "type": "string"
+      },
+      "Comparison": {
+        "additionalProperties": false,
+        "properties": {
+          "baseline_start_at": {
+            "format": "date-time",
+            "title": "Baseline Start At",
+            "type": "string"
+          },
+          "baseline_end_at": {
+            "format": "date-time",
+            "title": "Baseline End At",
+            "type": "string"
+          },
+          "mode": {
+            "const": "period_total",
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "baseline_start_at",
+          "baseline_end_at",
+          "mode"
+        ],
+        "title": "Comparison",
+        "type": "object"
+      },
+      "Dimension": {
+        "enum": [
+          "category",
+          "sales_region"
+        ],
+        "title": "Dimension",
+        "type": "string"
+      },
+      "ExpectedColumns": {
+        "additionalProperties": false,
+        "properties": {
+          "current": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Current",
+            "type": "array"
+          },
+          "baseline": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline"
+          }
+        },
+        "required": [
+          "current",
+          "baseline"
+        ],
+        "title": "ExpectedColumns",
+        "type": "object"
+      },
+      "Filters": {
+        "additionalProperties": false,
+        "properties": {
+          "sales_regions": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Region"
+            },
+            "title": "Sales Regions",
+            "type": "array"
+          },
+          "category_codes": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "title": "Category Codes",
+            "type": "array"
+          }
+        },
+        "title": "Filters",
+        "type": "object"
+      },
+      "Grain": {
+        "enum": [
+          "total",
+          "day",
+          "week",
+          "month"
+        ],
+        "title": "Grain",
+        "type": "string"
+      },
+      "MetricId": {
+        "enum": [
+          "paid_goods_amount",
+          "paid_order_count",
+          "refund_goods_amount",
+          "period_net_goods_amount"
+        ],
+        "title": "MetricId",
+        "type": "string"
+      },
+      "QueryPlan": {
+        "additionalProperties": false,
+        "properties": {
+          "current_sql": {
+            "maxLength": 8192,
+            "minLength": 1,
+            "title": "Current Sql",
+            "type": "string"
+          },
+          "baseline_sql": {
+            "anyOf": [
+              {
+                "maxLength": 8192,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline Sql"
+          },
+          "expected_columns": {
+            "$ref": "#/components/schemas/ExpectedColumns"
+          }
+        },
+        "required": [
+          "current_sql",
+          "baseline_sql",
+          "expected_columns"
+        ],
+        "title": "QueryPlan",
+        "type": "object"
+      },
+      "QuerySpec": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": "1",
+            "title": "Schema Version",
+            "type": "string"
+          },
+          "metric_id": {
+            "$ref": "#/components/schemas/MetricId"
+          },
+          "time_range": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "grain": {
+            "$ref": "#/components/schemas/Grain"
+          },
+          "group_by": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Dimension"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "filters": {
+            "$ref": "#/components/schemas/Filters"
+          },
+          "comparison": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Comparison"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "top_k": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TopK"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "result_limit": {
+            "maximum": 200,
+            "minimum": 1,
+            "title": "Result Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "schema_version",
+          "metric_id",
+          "time_range",
+          "grain",
+          "group_by",
+          "filters",
+          "comparison",
+          "top_k",
+          "result_limit"
+        ],
+        "title": "QuerySpec",
+        "type": "object"
+      },
+      "Region": {
+        "enum": [
+          "east",
+          "north",
+          "south",
+          "west"
+        ],
+        "title": "Region",
+        "type": "string"
+      },
+      "TimeRange": {
+        "additionalProperties": false,
+        "properties": {
+          "start_at": {
+            "format": "date-time",
+            "title": "Start At",
+            "type": "string"
+          },
+          "end_at": {
+            "format": "date-time",
+            "title": "End At",
+            "type": "string"
+          },
+          "timezone": {
+            "const": "Asia/Shanghai",
+            "title": "Timezone",
+            "type": "string"
+          },
+          "reference_time": {
+            "format": "date-time",
+            "title": "Reference Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_at",
+          "end_at",
+          "timezone",
+          "reference_time"
+        ],
+        "title": "TimeRange",
+        "type": "object"
+      },
+      "TopK": {
+        "additionalProperties": false,
+        "properties": {
+          "count": {
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Count",
+            "type": "integer"
+          },
+          "scope": {
+            "const": "whole_current_period",
+            "title": "Scope",
+            "type": "string"
+          },
+          "order": {
+            "const": "desc",
+            "title": "Order",
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "scope",
+          "order"
+        ],
+        "title": "TopK",
+        "type": "object"
+      }
+    }
+  }
+}

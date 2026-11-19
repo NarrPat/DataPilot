@@ -1,0 +1,28 @@
+{
+  "name": "datapilot-web",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22.12 <25"},
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 18081 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test:state": "node --test test/state.test.mjs",
+    "build": "tsc --noEmit && vite build"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.0",
+    "antd": "^6.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@playwright/cli": "0.1.23",
+    "@playwright/test": "^1.56.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.2.0"
+  }
+}

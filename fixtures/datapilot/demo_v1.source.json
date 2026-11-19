@@ -1,0 +1,512 @@
+{
+  "fixture_id": "DPFX-DEMO-V1",
+  "schema_version": "dp-schema-v1",
+  "catalog_version": "dp-catalog-v2-five",
+  "data_version": "demo_v1",
+  "seed": 20261115,
+  "business_projection_hash": "01e2c64ad26930cfc9b82e3606f2a748edac7f584a0823d8b0d6492498b9df55",
+  "oracle_version": "OR-DP-v2",
+  "human_reviewed": false,
+  "ready": false,
+  "tables": {
+    "customers": [
+      {
+        "customer_id": 1,
+        "registered_at": "2026-01-01T08:00:00+08:00",
+        "home_region": "east",
+        "is_active": true
+      },
+      {
+        "customer_id": 2,
+        "registered_at": "2026-01-02T08:00:00+08:00",
+        "home_region": "east",
+        "is_active": true
+      },
+      {
+        "customer_id": 3,
+        "registered_at": "2026-01-03T08:00:00+08:00",
+        "home_region": "north",
+        "is_active": true
+      },
+      {
+        "customer_id": 4,
+        "registered_at": "2026-01-01T08:00:00+08:00",
+        "home_region": "west",
+        "is_active": false
+      },
+      {
+        "customer_id": 5,
+        "registered_at": "2026-01-01T08:00:00+08:00",
+        "home_region": "south",
+        "is_active": true
+      },
+      {
+        "customer_id": 6,
+        "registered_at": "2026-01-01T08:00:00+08:00",
+        "home_region": "east",
+        "is_active": true
+      }
+    ],
+    "products": [
+      {
+        "product_id": 1,
+        "category_code": "books",
+        "product_name": "Synthetic Book",
+        "status": "active"
+      },
+      {
+        "product_id": 2,
+        "category_code": "electronics",
+        "product_name": "Synthetic Electronics",
+        "status": "active"
+      },
+      {
+        "product_id": 3,
+        "category_code": "apparel",
+        "product_name": "Synthetic Apparel",
+        "status": "active"
+      },
+      {
+        "product_id": 4,
+        "category_code": "food",
+        "product_name": "Synthetic food 4",
+        "status": "active"
+      },
+      {
+        "product_id": 5,
+        "category_code": "home",
+        "product_name": "Synthetic home 5",
+        "status": "active"
+      },
+      {
+        "product_id": 6,
+        "category_code": "sports",
+        "product_name": "Synthetic sports 6",
+        "status": "active"
+      },
+      {
+        "product_id": 7,
+        "category_code": "beauty",
+        "product_name": "Synthetic beauty 7",
+        "status": "active"
+      },
+      {
+        "product_id": 8,
+        "category_code": "toys",
+        "product_name": "Synthetic toys 8",
+        "status": "active"
+      },
+      {
+        "product_id": 9,
+        "category_code": "books",
+        "product_name": "Synthetic books 9",
+        "status": "active"
+      }
+    ],
+    "orders": [
+      {
+        "order_id": 101,
+        "customer_id": 1,
+        "created_at": "2026-09-30T23:00:00+08:00",
+        "paid_at": "2026-10-01T00:30:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 10000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 102,
+        "customer_id": 2,
+        "created_at": "2026-10-15T11:30:00+08:00",
+        "paid_at": "2026-10-15T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 10000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 103,
+        "customer_id": 1,
+        "created_at": "2026-09-20T11:00:00+08:00",
+        "paid_at": "2026-09-20T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 5000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 104,
+        "customer_id": 3,
+        "created_at": "2026-10-10T11:00:00+08:00",
+        "paid_at": "2026-10-10T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "north",
+        "paid_goods_amount_cents": 7000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 105,
+        "customer_id": 2,
+        "created_at": "2026-10-12T09:00:00+08:00",
+        "paid_at": null,
+        "payment_status": "unpaid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 0,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 201,
+        "customer_id": 6,
+        "created_at": "2026-08-31T23:30:00+08:00",
+        "paid_at": "2026-09-01T00:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 12000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 202,
+        "customer_id": 6,
+        "created_at": "2026-09-30T23:30:00+08:00",
+        "paid_at": "2026-10-01T00:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 0,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 203,
+        "customer_id": 6,
+        "created_at": "2026-10-08T11:30:00+08:00",
+        "paid_at": "2026-10-08T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 900,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 204,
+        "customer_id": 6,
+        "created_at": "2026-10-09T11:30:00+08:00",
+        "paid_at": "2026-10-09T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 100,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 205,
+        "customer_id": 6,
+        "created_at": "2026-10-31T23:29:59+08:00",
+        "paid_at": "2026-10-31T23:59:59+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 235,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 206,
+        "customer_id": 6,
+        "created_at": "2026-10-31T23:29:59+08:00",
+        "paid_at": "2026-10-31T23:59:59+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 234,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 207,
+        "customer_id": 4,
+        "created_at": "2026-10-07T11:30:00+08:00",
+        "paid_at": "2026-10-07T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "west",
+        "paid_goods_amount_cents": 30000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 208,
+        "customer_id": 5,
+        "created_at": "2026-10-15T11:30:00+08:00",
+        "paid_at": "2026-10-15T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "south",
+        "paid_goods_amount_cents": 5000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 209,
+        "customer_id": 6,
+        "created_at": "2026-10-31T23:30:00+08:00",
+        "paid_at": "2026-11-01T00:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 1000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 210,
+        "customer_id": 6,
+        "created_at": "2026-09-30T23:29:59+08:00",
+        "paid_at": "2026-09-30T23:59:59+08:00",
+        "payment_status": "paid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 3000,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 211,
+        "customer_id": 6,
+        "created_at": "2026-10-17T11:30:00+08:00",
+        "paid_at": null,
+        "payment_status": "canceled_unpaid",
+        "sales_region": "east",
+        "paid_goods_amount_cents": 0,
+        "currency": "CNY"
+      },
+      {
+        "order_id": 212,
+        "customer_id": 3,
+        "created_at": "2026-10-20T11:30:00+08:00",
+        "paid_at": "2026-10-20T12:00:00+08:00",
+        "payment_status": "paid",
+        "sales_region": "north",
+        "paid_goods_amount_cents": 0,
+        "currency": "CNY"
+      }
+    ],
+    "order_items": [
+      {
+        "order_item_id": 1001,
+        "order_id": 101,
+        "product_id": 1,
+        "quantity": 1,
+        "paid_amount_cents": 6000
+      },
+      {
+        "order_item_id": 1002,
+        "order_id": 101,
+        "product_id": 2,
+        "quantity": 1,
+        "paid_amount_cents": 4000
+      },
+      {
+        "order_item_id": 1003,
+        "order_id": 102,
+        "product_id": 1,
+        "quantity": 2,
+        "paid_amount_cents": 10000
+      },
+      {
+        "order_item_id": 1004,
+        "order_id": 103,
+        "product_id": 1,
+        "quantity": 1,
+        "paid_amount_cents": 5000
+      },
+      {
+        "order_item_id": 1005,
+        "order_id": 104,
+        "product_id": 2,
+        "quantity": 1,
+        "paid_amount_cents": 7000
+      },
+      {
+        "order_item_id": 1006,
+        "order_id": 105,
+        "product_id": 3,
+        "quantity": 1,
+        "paid_amount_cents": 0
+      },
+      {
+        "order_item_id": 2010,
+        "order_id": 201,
+        "product_id": 5,
+        "quantity": 1,
+        "paid_amount_cents": 12000
+      },
+      {
+        "order_item_id": 2020,
+        "order_id": 202,
+        "product_id": 4,
+        "quantity": 1,
+        "paid_amount_cents": 0
+      },
+      {
+        "order_item_id": 2030,
+        "order_id": 203,
+        "product_id": 1,
+        "quantity": 1,
+        "paid_amount_cents": 450
+      },
+      {
+        "order_item_id": 2031,
+        "order_id": 203,
+        "product_id": 9,
+        "quantity": 1,
+        "paid_amount_cents": 450
+      },
+      {
+        "order_item_id": 2040,
+        "order_id": 204,
+        "product_id": 1,
+        "quantity": 1,
+        "paid_amount_cents": 100
+      },
+      {
+        "order_item_id": 2050,
+        "order_id": 205,
+        "product_id": 6,
+        "quantity": 1,
+        "paid_amount_cents": 235
+      },
+      {
+        "order_item_id": 2060,
+        "order_id": 206,
+        "product_id": 6,
+        "quantity": 1,
+        "paid_amount_cents": 234
+      },
+      {
+        "order_item_id": 2070,
+        "order_id": 207,
+        "product_id": 7,
+        "quantity": 1,
+        "paid_amount_cents": 30000
+      },
+      {
+        "order_item_id": 2080,
+        "order_id": 208,
+        "product_id": 8,
+        "quantity": 1,
+        "paid_amount_cents": 5000
+      },
+      {
+        "order_item_id": 2090,
+        "order_id": 209,
+        "product_id": 3,
+        "quantity": 1,
+        "paid_amount_cents": 1000
+      },
+      {
+        "order_item_id": 2100,
+        "order_id": 210,
+        "product_id": 3,
+        "quantity": 1,
+        "paid_amount_cents": 3000
+      },
+      {
+        "order_item_id": 2110,
+        "order_id": 211,
+        "product_id": 8,
+        "quantity": 1,
+        "paid_amount_cents": 0
+      },
+      {
+        "order_item_id": 2120,
+        "order_id": 212,
+        "product_id": 4,
+        "quantity": 1,
+        "paid_amount_cents": 0
+      }
+    ],
+    "refunds": [
+      {
+        "refund_id": 1,
+        "order_item_id": 1001,
+        "requested_at": "2026-10-04T12:00:00+08:00",
+        "succeeded_at": "2026-10-05T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 1000
+      },
+      {
+        "refund_id": 2,
+        "order_item_id": 1001,
+        "requested_at": "2026-10-19T12:00:00+08:00",
+        "succeeded_at": "2026-10-20T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 500
+      },
+      {
+        "refund_id": 3,
+        "order_item_id": 1003,
+        "requested_at": "2026-11-01T12:00:00+08:00",
+        "succeeded_at": "2026-11-02T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 2000
+      },
+      {
+        "refund_id": 4,
+        "order_item_id": 1004,
+        "requested_at": "2026-10-07T12:00:00+08:00",
+        "succeeded_at": "2026-10-08T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 1000
+      },
+      {
+        "refund_id": 5,
+        "order_item_id": 1005,
+        "requested_at": "2026-10-10T18:00:00+08:00",
+        "succeeded_at": "2026-10-11T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 700
+      },
+      {
+        "refund_id": 6,
+        "order_item_id": 1002,
+        "requested_at": "2026-10-21T12:00:00+08:00",
+        "succeeded_at": null,
+        "status": "pending",
+        "amount_cents": 500
+      },
+      {
+        "refund_id": 201,
+        "order_item_id": 2010,
+        "requested_at": "2026-10-10T12:00:00+08:00",
+        "succeeded_at": "2026-10-10T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 8000
+      },
+      {
+        "refund_id": 202,
+        "order_item_id": 2030,
+        "requested_at": "2026-10-08T13:00:00+08:00",
+        "succeeded_at": "2026-10-08T13:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 100
+      },
+      {
+        "refund_id": 203,
+        "order_item_id": 2030,
+        "requested_at": "2026-10-09T12:00:00+08:00",
+        "succeeded_at": null,
+        "status": "failed",
+        "amount_cents": 50
+      },
+      {
+        "refund_id": 204,
+        "order_item_id": 2070,
+        "requested_at": "2026-11-01T00:00:00+08:00",
+        "succeeded_at": "2026-11-01T00:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 2000
+      },
+      {
+        "refund_id": 205,
+        "order_item_id": 2080,
+        "requested_at": "2026-10-20T12:00:00+08:00",
+        "succeeded_at": "2026-10-20T12:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 500
+      },
+      {
+        "refund_id": 206,
+        "order_item_id": 2100,
+        "requested_at": "2026-10-01T00:00:00+08:00",
+        "succeeded_at": "2026-10-01T00:00:00+08:00",
+        "status": "succeeded",
+        "amount_cents": 3000
+      }
+    ]
+  }
+}

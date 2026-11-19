@@ -1,0 +1,371 @@
+{
+  "catalog_version": "dp-catalog-v2-five",
+  "schema_version": "dp-schema-v1",
+  "stage": "five_metrics",
+  "regions": {
+    "east": [
+      "华东"
+    ],
+    "north": [
+      "华北"
+    ],
+    "south": [
+      "华南"
+    ],
+    "west": [
+      "西部"
+    ]
+  },
+  "categories": {
+    "books": [
+      "图书"
+    ],
+    "electronics": [
+      "电子",
+      "数码"
+    ],
+    "apparel": [
+      "服饰"
+    ],
+    "food": [
+      "食品"
+    ],
+    "home": [
+      "家居"
+    ],
+    "sports": [
+      "运动"
+    ],
+    "beauty": [
+      "美妆"
+    ],
+    "toys": [
+      "玩具"
+    ]
+  },
+  "metrics": [
+    {
+      "metric_id": "paid_goods_amount",
+      "metric_version": "1",
+      "name": "支付商品金额",
+      "aliases": [
+        "支付金额"
+      ],
+      "fact_grain": "order_item",
+      "time_fields": [
+        "orders.paid_at"
+      ],
+      "unit": "CNY",
+      "numerator_key": "paid_item_cents",
+      "denominator_key": null,
+      "required_columns": {
+        "orders": [
+          "order_id",
+          "paid_at",
+          "payment_status",
+          "sales_region"
+        ],
+        "order_items": [
+          "order_id",
+          "product_id",
+          "paid_amount_cents"
+        ]
+      },
+      "allowed_join_paths": [
+        [
+          "order_items.order_id",
+          "orders.order_id"
+        ],
+        [
+          "order_items.product_id",
+          "products.product_id"
+        ]
+      ],
+      "allowed_dimensions": [
+        "category",
+        "sales_region"
+      ],
+      "allowed_grains": [
+        "total",
+        "day",
+        "week",
+        "month"
+      ],
+      "filter_contract": {
+        "payment_status": "paid",
+        "sales_region": "orders.sales_region",
+        "category": "products.category_code",
+        "interval": "[start_at,end_at)"
+      },
+      "result_contract": [
+        "bucket_start",
+        "group_key",
+        "amount_cents"
+      ],
+      "zero_policy": "zero_total_empty_groups",
+      "rollup_policy": "sum_cents"
+    },
+    {
+      "metric_id": "paid_order_count",
+      "metric_version": "1",
+      "name": "支付订单数",
+      "aliases": [
+        "支付笔数"
+      ],
+      "fact_grain": "distinct_order",
+      "time_fields": [
+        "orders.paid_at"
+      ],
+      "unit": "orders",
+      "numerator_key": "distinct_paid_orders",
+      "denominator_key": null,
+      "required_columns": {
+        "orders": [
+          "order_id",
+          "paid_at",
+          "payment_status",
+          "sales_region"
+        ]
+      },
+      "allowed_join_paths": [
+        [
+          "order_items.order_id",
+          "orders.order_id"
+        ],
+        [
+          "order_items.product_id",
+          "products.product_id"
+        ]
+      ],
+      "allowed_dimensions": [
+        "category",
+        "sales_region"
+      ],
+      "allowed_grains": [
+        "total",
+        "day",
+        "week",
+        "month"
+      ],
+      "filter_contract": {
+        "payment_status": "paid",
+        "sales_region": "orders.sales_region",
+        "category": "products.category_code",
+        "interval": "[start_at,end_at)"
+      },
+      "result_contract": [
+        "bucket_start",
+        "group_key",
+        "order_count"
+      ],
+      "zero_policy": "zero_total_empty_groups",
+      "rollup_policy": "distinct_orders_no_cross_category_sum"
+    },
+    {
+      "metric_id": "refund_goods_amount",
+      "metric_version": "1",
+      "name": "成功退款商品金额",
+      "aliases": [
+        "成功退款金额"
+      ],
+      "fact_grain": "refund",
+      "time_fields": [
+        "refunds.succeeded_at"
+      ],
+      "unit": "CNY",
+      "numerator_key": "succeeded_refund_cents",
+      "denominator_key": null,
+      "required_columns": {
+        "refunds": [
+          "order_item_id",
+          "succeeded_at",
+          "status",
+          "amount_cents"
+        ],
+        "order_items": [
+          "order_item_id",
+          "order_id",
+          "product_id"
+        ],
+        "orders": [
+          "order_id",
+          "sales_region"
+        ]
+      },
+      "allowed_join_paths": [
+        [
+          "refunds.order_item_id",
+          "order_items.order_item_id"
+        ],
+        [
+          "order_items.order_id",
+          "orders.order_id"
+        ],
+        [
+          "order_items.product_id",
+          "products.product_id"
+        ]
+      ],
+      "allowed_dimensions": [
+        "category",
+        "sales_region"
+      ],
+      "allowed_grains": [
+        "total",
+        "day",
+        "week",
+        "month"
+      ],
+      "filter_contract": {
+        "refund_status": "succeeded",
+        "sales_region": "orders.sales_region",
+        "category": "products.category_code",
+        "interval": "[start_at,end_at)"
+      },
+      "result_contract": [
+        "bucket_start",
+        "group_key",
+        "amount_cents"
+      ],
+      "zero_policy": "zero_total_empty_groups",
+      "rollup_policy": "sum_cents"
+    },
+    {
+      "metric_id": "period_net_goods_amount",
+      "metric_version": "1",
+      "name": "期间商品净流入额",
+      "aliases": [
+        "期间净流入"
+      ],
+      "fact_grain": "independent_payment_and_refund_events",
+      "time_fields": [
+        "orders.paid_at",
+        "refunds.succeeded_at"
+      ],
+      "unit": "CNY",
+      "numerator_key": "paid_minus_succeeded_refund_cents",
+      "denominator_key": null,
+      "required_columns": {
+        "orders": [
+          "order_id",
+          "paid_at",
+          "payment_status",
+          "sales_region"
+        ],
+        "order_items": [
+          "order_item_id",
+          "order_id",
+          "product_id",
+          "paid_amount_cents"
+        ],
+        "refunds": [
+          "order_item_id",
+          "succeeded_at",
+          "status",
+          "amount_cents"
+        ]
+      },
+      "allowed_join_paths": [
+        [
+          "refunds.order_item_id",
+          "order_items.order_item_id"
+        ],
+        [
+          "order_items.order_id",
+          "orders.order_id"
+        ],
+        [
+          "order_items.product_id",
+          "products.product_id"
+        ]
+      ],
+      "allowed_dimensions": [
+        "category",
+        "sales_region"
+      ],
+      "allowed_grains": [
+        "total",
+        "day",
+        "week",
+        "month"
+      ],
+      "filter_contract": {
+        "payment_status": "paid",
+        "refund_status": "succeeded",
+        "sales_region": "orders.sales_region",
+        "category": "products.category_code",
+        "interval": "[start_at,end_at)"
+      },
+      "result_contract": [
+        "bucket_start",
+        "group_key",
+        "paid_amount_cents",
+        "refund_amount_cents"
+      ],
+      "zero_policy": "zero_total_empty_groups",
+      "rollup_policy": "sum_independent_axes_allow_negative"
+    },
+    {
+      "metric_id": "paid_aov",
+      "metric_version": "1",
+      "name": "支付客单价",
+      "aliases": [
+        "客单价"
+      ],
+      "fact_grain": "paid_items_over_distinct_orders",
+      "time_fields": [
+        "orders.paid_at"
+      ],
+      "unit": "CNY",
+      "numerator_key": "paid_item_cents",
+      "denominator_key": "distinct_paid_orders",
+      "required_columns": {
+        "orders": [
+          "order_id",
+          "paid_at",
+          "payment_status",
+          "sales_region"
+        ],
+        "order_items": [
+          "order_id",
+          "product_id",
+          "paid_amount_cents"
+        ]
+      },
+      "allowed_join_paths": [
+        [
+          "order_items.order_id",
+          "orders.order_id"
+        ],
+        [
+          "order_items.product_id",
+          "products.product_id"
+        ]
+      ],
+      "allowed_dimensions": [
+        "category",
+        "sales_region"
+      ],
+      "allowed_grains": [
+        "total",
+        "day",
+        "week",
+        "month"
+      ],
+      "filter_contract": {
+        "payment_status": "paid",
+        "sales_region": "orders.sales_region",
+        "category": "products.category_code",
+        "interval": "[start_at,end_at)"
+      },
+      "result_contract": [
+        "bucket_start",
+        "group_key",
+        "amount_cents",
+        "order_count"
+      ],
+      "zero_policy": "null_no_paid_orders",
+      "rollup_policy": "ratio_of_summed_components_no_cross_category_sum"
+    }
+  ]
+}

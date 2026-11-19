@@ -1,0 +1,17 @@
+# Add to the existing entry: -f compose.yaml -f compose.deploy.yaml.
+# No additional host DB/Redis/API ports; no test/eval hooks or admin in runtime.
+services:
+  api:
+    environment:
+      DP_PROFILE: deploy
+      DP_APP_ALLOWED_ORIGINS: ${DP_PUBLIC_ORIGIN:?Set one exact HTTPS origin}
+  worker:
+    environment:
+      DP_PROFILE: prod
+  control:
+    environment:
+      DP_PROFILE: prod
+  web:
+    volumes:
+      - ./nginx.deploy.conf:/etc/nginx/nginx.conf:ro
+      - ${DP_TLS_DIRECTORY:?Set the absolute certificate directory}:/run/datapilot/tls:ro

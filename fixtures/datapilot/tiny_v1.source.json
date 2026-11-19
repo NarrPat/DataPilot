@@ -1,0 +1,46 @@
+{
+  "fixture_id": "DPFX-BASE",
+  "schema_version": "dp-schema-v1",
+  "catalog_version": "dp-catalog-v1",
+  "data_version": "tiny_v1",
+  "seed": 20261104,
+  "business_projection_hash": "49735839b06950cbb422c78000f36b805e1dcec41720132655155c2bbd7aa98d",
+  "oracle_version": "OR-DP-v1",
+  "human_reviewed": false,
+  "ready": false,
+  "tables": {
+    "customers": [
+      {"customer_id": 1, "registered_at": "2026-01-01T08:00:00+08:00", "home_region": "east", "is_active": true},
+      {"customer_id": 2, "registered_at": "2026-01-02T08:00:00+08:00", "home_region": "east", "is_active": true},
+      {"customer_id": 3, "registered_at": "2026-01-03T08:00:00+08:00", "home_region": "north", "is_active": true}
+    ],
+    "products": [
+      {"product_id": 1, "category_code": "books", "product_name": "Synthetic Book", "status": "active"},
+      {"product_id": 2, "category_code": "electronics", "product_name": "Synthetic Electronics", "status": "active"},
+      {"product_id": 3, "category_code": "apparel", "product_name": "Synthetic Apparel", "status": "active"}
+    ],
+    "orders": [
+      {"order_id": 101, "customer_id": 1, "created_at": "2026-09-30T23:00:00+08:00", "paid_at": "2026-10-01T00:30:00+08:00", "payment_status": "paid", "sales_region": "east", "paid_goods_amount_cents": 10000, "currency": "CNY"},
+      {"order_id": 102, "customer_id": 2, "created_at": "2026-10-15T11:30:00+08:00", "paid_at": "2026-10-15T12:00:00+08:00", "payment_status": "paid", "sales_region": "east", "paid_goods_amount_cents": 10000, "currency": "CNY"},
+      {"order_id": 103, "customer_id": 1, "created_at": "2026-09-20T11:00:00+08:00", "paid_at": "2026-09-20T12:00:00+08:00", "payment_status": "paid", "sales_region": "east", "paid_goods_amount_cents": 5000, "currency": "CNY"},
+      {"order_id": 104, "customer_id": 3, "created_at": "2026-10-10T11:00:00+08:00", "paid_at": "2026-10-10T12:00:00+08:00", "payment_status": "paid", "sales_region": "north", "paid_goods_amount_cents": 7000, "currency": "CNY"},
+      {"order_id": 105, "customer_id": 2, "created_at": "2026-10-12T09:00:00+08:00", "paid_at": null, "payment_status": "unpaid", "sales_region": "east", "paid_goods_amount_cents": 0, "currency": "CNY"}
+    ],
+    "order_items": [
+      {"order_item_id": 1001, "order_id": 101, "product_id": 1, "quantity": 1, "paid_amount_cents": 6000},
+      {"order_item_id": 1002, "order_id": 101, "product_id": 2, "quantity": 1, "paid_amount_cents": 4000},
+      {"order_item_id": 1003, "order_id": 102, "product_id": 1, "quantity": 2, "paid_amount_cents": 10000},
+      {"order_item_id": 1004, "order_id": 103, "product_id": 1, "quantity": 1, "paid_amount_cents": 5000},
+      {"order_item_id": 1005, "order_id": 104, "product_id": 2, "quantity": 1, "paid_amount_cents": 7000},
+      {"order_item_id": 1006, "order_id": 105, "product_id": 3, "quantity": 1, "paid_amount_cents": 0}
+    ],
+    "refunds": [
+      {"refund_id": 1, "order_item_id": 1001, "requested_at": "2026-10-04T12:00:00+08:00", "succeeded_at": "2026-10-05T12:00:00+08:00", "status": "succeeded", "amount_cents": 1000},
+      {"refund_id": 2, "order_item_id": 1001, "requested_at": "2026-10-19T12:00:00+08:00", "succeeded_at": "2026-10-20T12:00:00+08:00", "status": "succeeded", "amount_cents": 500},
+      {"refund_id": 3, "order_item_id": 1003, "requested_at": "2026-11-01T12:00:00+08:00", "succeeded_at": "2026-11-02T12:00:00+08:00", "status": "succeeded", "amount_cents": 2000},
+      {"refund_id": 4, "order_item_id": 1004, "requested_at": "2026-10-07T12:00:00+08:00", "succeeded_at": "2026-10-08T12:00:00+08:00", "status": "succeeded", "amount_cents": 1000},
+      {"refund_id": 5, "order_item_id": 1005, "requested_at": "2026-10-10T18:00:00+08:00", "succeeded_at": "2026-10-11T12:00:00+08:00", "status": "succeeded", "amount_cents": 700},
+      {"refund_id": 6, "order_item_id": 1002, "requested_at": "2026-10-21T12:00:00+08:00", "succeeded_at": null, "status": "pending", "amount_cents": 500}
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "dp-schema-v1",
+  "views": {
+    "customers": {"customer_id":"int8","registered_at":"timestamptz","home_region":"text","is_active":"bool"},
+    "products": {"product_id":"int8","category_code":"text","product_name":"text","status":"text"},
+    "orders": {"order_id":"int8","customer_id":"int8","created_at":"timestamptz","paid_at":"timestamptz","payment_status":"text","sales_region":"text","paid_goods_amount_cents":"int8","currency":"bpchar"},
+    "order_items": {"order_item_id":"int8","order_id":"int8","product_id":"int8","quantity":"int4","paid_amount_cents":"int8"},
+    "refunds": {"refund_id":"int8","order_item_id":"int8","requested_at":"timestamptz","succeeded_at":"timestamptz","status":"text","amount_cents":"int8"}
+  },
+  "joins": [
+    ["orders.customer_id", "customers.customer_id"],
+    ["order_items.order_id", "orders.order_id"],
+    ["order_items.product_id", "products.product_id"],
+    ["refunds.order_item_id", "order_items.order_item_id"]
+  ]
+}

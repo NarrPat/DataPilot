@@ -1,0 +1,206 @@
+name: ${COMPOSE_PROJECT_NAME:-datapilot}
+services:
+  postgres:
+    image: postgres:18.6-bookworm@sha256:f1ea2a1a4fb7b68d4836be1fdcb8a6466a89b072158bf9d97663600538c294c5
+    environment:
+      POSTGRES_USER: dp_bootstrap
+      POSTGRES_DB: dp_app
+      POSTGRES_PASSWORD: ${DP_POSTGRES_ADMIN_PASSWORD:?Generate .env.local first}
+      DP_APP_DB_PASSWORD: ${DP_APP_DB_PASSWORD:?Generate .env.local first}
+      DP_ANALYST_ALL_PASSWORD: ${DP_ANALYST_ALL_PASSWORD:?Generate .env.local first}
+      DP_ANALYST_EAST_PASSWORD: ${DP_ANALYST_EAST_PASSWORD:?Generate .env.local first}
+    volumes:
+    - pg_data:/var/lib/postgresql
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U dp_bootstrap -d dp_app
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    cpus: 2.0
+    mem_limit: 2g
+    networks:
+    - backend
+  redis:
+    image: redis:7.4.12-bookworm@sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90
+    command:
+    - redis-server
+    - --appendonly
+    - 'yes'
+    - --maxmemory
+    - 128mb
+    - --maxmemory-policy
+    - noeviction
+    volumes:
+    - redis_data:/data
+    healthcheck:
+      test:
+      - CMD
+      - redis-cli
+      - ping
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    cpus: 0.5
+    mem_limit: 256m
+    networks:
+    - backend
+  manage:
+    profiles:
+    - manage
+    build:
+      context: ../..
+      dockerfile: apps/datapilot/Dockerfile.manage
+    environment:
+      DP_MODEL_MODE: none
+      DP_POSTGRES_ADMIN_PASSWORD: ${DP_POSTGRES_ADMIN_PASSWORD:?Generate environment
+        first}
+      DP_APP_DB_PASSWORD: ${DP_APP_DB_PASSWORD:?Generate environment first}
+      DP_ANALYST_ALL_PASSWORD: ${DP_ANALYST_ALL_PASSWORD:?Generate environment first}
+      DP_ANALYST_EAST_PASSWORD: ${DP_ANALYST_EAST_PASSWORD:?Generate environment first}
+      DP_SEED_PASSWORD: ${DP_SEED_PASSWORD:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+    - backend
+    cpus: 1.0
+    mem_limit: 512m
+  api:
+    profiles:
+    - application
+    build:
+      context: ../..
+      dockerfile: apps/datapilot/Dockerfile.runtime
+    command:
+    - python
+    - -m
+    - uvicorn
+    - datapilot.api.app:create_runtime_app
+    - --factory
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8000'
+    - --no-proxy-headers
+    - --no-server-header
+    - --no-access-log
+    environment:
+      DP_PROFILE: dev
+      DP_MODEL_MODE: ${DP_MODEL_MODE:-none}
+      DP_QUERY_PROCESSING_ENABLED: ${DP_QUERY_PROCESSING_ENABLED:-0}
+      DP_SESSION_SECRET: ${DP_SESSION_SECRET:?Generate .env.local first}
+      DP_APP_DB_PASSWORD: ${DP_APP_DB_PASSWORD:?Generate .env.local first}
+      DP_APP_ALLOWED_ORIGINS: http://127.0.0.1:18081,http://localhost:18081
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live',timeout=2).close()
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    stop_grace_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '3'
+    networks:
+    - backend
+    cpus: 1.0
+    mem_limit: 512m
+  web:
+    profiles:
+    - application
+    build:
+      context: ../..
+      dockerfile: apps/datapilot/Dockerfile.web
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+    - ${DP_WEB_BIND_ADDRESS:-127.0.0.1}:${DP_HTTP_PORT:-18081}:${DP_WEB_CONTAINER_PORT:-8080}
+    networks:
+    - backend
+    - web_entry
+    cpus: 0.5
+    mem_limit: 128m
+  worker:
+    profiles:
+    - processing
+    build:
+      context: ../..
+      dockerfile: apps/datapilot/Dockerfile.runtime
+    command:
+    - python
+    - -m
+    - datapilot.runtime.worker
+    environment:
+      DP_PROFILE: dev
+      DP_MODEL_MODE: ${DP_MODEL_MODE:-none}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DP_LIVE_AUDIT_BUDGET: ${DP_LIVE_AUDIT_BUDGET:-}
+      DP_APP_DB_PASSWORD: ${DP_APP_DB_PASSWORD:?Generate .env.local first}
+      DP_ANALYST_ALL_PASSWORD: ${DP_ANALYST_ALL_PASSWORD:?Generate .env.local first}
+      DP_ANALYST_EAST_PASSWORD: ${DP_ANALYST_EAST_PASSWORD:?Generate .env.local first}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 145s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '3'
+    networks:
+    - backend
+    - model_egress
+    cpus: 2.0
+    mem_limit: 2g
+  control:
+    profiles:
+    - processing
+    build:
+      context: ../..
+      dockerfile: apps/datapilot/Dockerfile.runtime
+    command:
+    - python
+    - -m
+    - datapilot.runtime.control
+    environment:
+      DP_PROFILE: dev
+      DP_MODEL_MODE: none
+      DP_APP_DB_PASSWORD: ${DP_APP_DB_PASSWORD:?Generate .env.local first}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '3'
+    networks:
+    - backend
+    cpus: 0.5
+    mem_limit: 256m
+networks:
+  backend:
+    internal: true
+  model_egress: {}
+  web_entry: {}
+volumes:
+  pg_data: null
+  redis_data: null
