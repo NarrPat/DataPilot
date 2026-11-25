@@ -1,0 +1,1120 @@
+{
+  "format_version": 1,
+  "run_date": "2026-11-15",
+  "initial": {
+    "status": "failed",
+    "correct": 11,
+    "planned": 12,
+    "mismatches": [
+      "deny-west-reason"
+    ],
+    "human_reviewed": false,
+    "source_snapshot_sha256": "da66908123472f41b15986ffd021a15a1dfaa535bd1c9c775acc3d767a07e99e",
+    "checked_assertions": 187,
+    "provider": {
+      "invocation_count": 24,
+      "response_count": 24,
+      "usage_known_numerator": 24,
+      "usage_known_denominator": 24,
+      "cost_cny": null
+    },
+    "total_repair_count": 0,
+    "reason_check": {
+      "expected": "SCOPE_FORBIDDEN",
+      "actual": "FORBIDDEN_SCOPE"
+    }
+  },
+  "rerun": {
+    "status": "passed",
+    "correct": 12,
+    "planned": 12,
+    "mismatches": [],
+    "human_reviewed": false,
+    "source_snapshot_sha256": "76b3893c275ff019bcc55efb33447f7d38f9fbbb6caeaea74da6a2048df9ecca",
+    "checked_assertions": 187,
+    "provider": {
+      "invocation_count": 24,
+      "response_count": 24,
+      "usage_known_numerator": 24,
+      "usage_known_denominator": 24,
+      "cost_cny": null
+    },
+    "total_repair_count": 0
+  },
+  "cases": [
+    {
+      "id": "paid-east",
+      "question": "2026年10月华东支付商品金额是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "paid_goods_amount",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:08:38.231526+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": null,
+              "value": "214.69"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": null,
+              "value": "214.69"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "count-east",
+      "question": "2026年10月华东有多少笔支付订单？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "paid_order_count",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:09:33.850186+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": null,
+              "value": 7
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": null,
+              "value": 7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "refund-east",
+      "question": "2026年10月华东成功退款商品金额是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "refund_goods_amount",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:10:06.794786+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": null,
+              "value": "136.00"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": null,
+              "value": "136.00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "net-week-compare",
+      "question": "2026年10月华东每周各品类期间商品净流入额是多少？与2026年9月同品类全期汇总相比如何？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": {
+            "baseline_end_at": "2026-10-01T00:00:00+08:00",
+            "baseline_start_at": "2026-09-01T00:00:00+08:00",
+            "mode": "period_total"
+          },
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "week",
+          "group_by": "category",
+          "metric_id": "period_net_goods_amount",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:10:39.980562+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "30.00",
+              "comparison_reason": null,
+              "delta": "-60.00",
+              "group_key": "apparel",
+              "null_reason": null,
+              "pct_change": "-2.000000",
+              "value": "-30.00"
+            },
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "50.00",
+              "comparison_reason": null,
+              "delta": "94.00",
+              "group_key": "books",
+              "null_reason": null,
+              "pct_change": "1.880000",
+              "value": "144.00"
+            },
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "0.00",
+              "comparison_reason": "BASELINE_NON_POSITIVE",
+              "delta": "40.00",
+              "group_key": "electronics",
+              "null_reason": null,
+              "pct_change": null,
+              "value": "40.00"
+            },
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "0.00",
+              "comparison_reason": "BASELINE_NON_POSITIVE",
+              "delta": "0.00",
+              "group_key": "food",
+              "null_reason": null,
+              "pct_change": null,
+              "value": "0.00"
+            },
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "120.00",
+              "comparison_reason": null,
+              "delta": "-200.00",
+              "group_key": "home",
+              "null_reason": null,
+              "pct_change": "-1.666667",
+              "value": "-80.00"
+            },
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "0.00",
+              "comparison_reason": "BASELINE_NON_POSITIVE",
+              "delta": "4.69",
+              "group_key": "sports",
+              "null_reason": null,
+              "pct_change": null,
+              "value": "4.69"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": "2026-09-28T00:00:00+08:00",
+              "group_key": "apparel",
+              "null_reason": null,
+              "value": "-30.00"
+            },
+            {
+              "bucket_start": "2026-09-28T00:00:00+08:00",
+              "group_key": "books",
+              "null_reason": null,
+              "value": "60.00"
+            },
+            {
+              "bucket_start": "2026-09-28T00:00:00+08:00",
+              "group_key": "electronics",
+              "null_reason": null,
+              "value": "40.00"
+            },
+            {
+              "bucket_start": "2026-09-28T00:00:00+08:00",
+              "group_key": "food",
+              "null_reason": null,
+              "value": "0.00"
+            },
+            {
+              "bucket_start": "2026-10-05T00:00:00+08:00",
+              "group_key": "books",
+              "null_reason": null,
+              "value": "-11.00"
+            },
+            {
+              "bucket_start": "2026-10-05T00:00:00+08:00",
+              "group_key": "home",
+              "null_reason": null,
+              "value": "-80.00"
+            },
+            {
+              "bucket_start": "2026-10-12T00:00:00+08:00",
+              "group_key": "books",
+              "null_reason": null,
+              "value": "100.00"
+            },
+            {
+              "bucket_start": "2026-10-19T00:00:00+08:00",
+              "group_key": "books",
+              "null_reason": null,
+              "value": "-5.00"
+            },
+            {
+              "bucket_start": "2026-10-26T00:00:00+08:00",
+              "group_key": "sports",
+              "null_reason": null,
+              "value": "4.69"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "aov-category",
+      "question": "2026年10月华东各品类支付客单价是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": "category",
+          "metric_id": "paid_aov",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:11:15.161245+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": "books",
+              "null_reason": null,
+              "value": "42.50"
+            },
+            {
+              "group_key": "electronics",
+              "null_reason": null,
+              "value": "40.00"
+            },
+            {
+              "group_key": "food",
+              "null_reason": null,
+              "value": "0.00"
+            },
+            {
+              "group_key": "sports",
+              "null_reason": null,
+              "value": "2.35"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": "books",
+              "null_reason": null,
+              "value": "42.50"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "electronics",
+              "null_reason": null,
+              "value": "40.00"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "food",
+              "null_reason": null,
+              "value": "0.00"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "sports",
+              "null_reason": null,
+              "value": "2.35"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "aov-all-regions",
+      "question": "2026年10月按销售区域分组的支付客单价是多少？",
+      "scope": "all",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": []
+          },
+          "grain": "total",
+          "group_by": "sales_region",
+          "metric_id": "paid_aov",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:12:09.542449+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": "east",
+              "null_reason": null,
+              "value": "30.67"
+            },
+            {
+              "group_key": "north",
+              "null_reason": null,
+              "value": "35.00"
+            },
+            {
+              "group_key": "south",
+              "null_reason": null,
+              "value": "50.00"
+            },
+            {
+              "group_key": "west",
+              "null_reason": null,
+              "value": "300.00"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": "east",
+              "null_reason": null,
+              "value": "30.67"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "north",
+              "null_reason": null,
+              "value": "35.00"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "south",
+              "null_reason": null,
+              "value": "50.00"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "west",
+              "null_reason": null,
+              "value": "300.00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "aov-zero",
+      "question": "2026年10月华东食品品类的支付客单价是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [
+              "food"
+            ],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "paid_aov",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:13:02.603737+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": null,
+              "value": "0.00"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": null,
+              "value": "0.00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "aov-empty",
+      "question": "2026年12月华东支付客单价是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "paid_aov",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2027-01-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:13:35.647920+08:00",
+            "start_at": "2026-12-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": "NO_PAID_ORDERS",
+              "value": null
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": "NO_PAID_ORDERS",
+              "value": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "top-two",
+      "question": "2026年10月支付商品金额最高的两个品类是什么？与2026年9月同品类汇总相比如何？",
+      "scope": "all",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": {
+            "baseline_end_at": "2026-10-01T00:00:00+08:00",
+            "baseline_start_at": "2026-09-01T00:00:00+08:00",
+            "mode": "period_total"
+          },
+          "filters": {
+            "category_codes": [],
+            "sales_regions": []
+          },
+          "grain": "total",
+          "group_by": "category",
+          "metric_id": "paid_goods_amount",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:14:29.836320+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": {
+            "count": 2,
+            "order": "desc",
+            "scope": "whole_current_period"
+          }
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "0.00",
+              "comparison_reason": "BASELINE_NON_POSITIVE",
+              "delta": "300.00",
+              "group_key": "beauty",
+              "null_reason": null,
+              "pct_change": null,
+              "value": "300.00"
+            },
+            {
+              "baseline_null_reason": null,
+              "baseline_value": "50.00",
+              "comparison_reason": null,
+              "delta": "120.00",
+              "group_key": "books",
+              "null_reason": null,
+              "pct_change": "2.400000",
+              "value": "170.00"
+            }
+          ],
+          "ranked_groups": [
+            "beauty",
+            "books"
+          ],
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": "beauty",
+              "null_reason": null,
+              "value": "300.00"
+            },
+            {
+              "bucket_start": null,
+              "group_key": "books",
+              "null_reason": null,
+              "value": "170.00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "clarify-net",
+      "question": "2026年10月华东净额是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "parse_clarification",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "period_net_goods_amount",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-11-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:15:23.963714+08:00",
+            "start_at": "2026-10-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": null,
+              "value": "78.69"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": null,
+              "value": "78.69"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "followup-november",
+      "question": "改看2026年11月，其他口径不变。",
+      "scope": "east",
+      "initial": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": []
+      },
+      "rerun": {
+        "status": "completed",
+        "expected_status": "completed",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse",
+          "generate"
+        ],
+        "repair_count": 0,
+        "observed_spec": {
+          "comparison": null,
+          "filters": {
+            "category_codes": [],
+            "sales_regions": [
+              "east"
+            ]
+          },
+          "grain": "total",
+          "group_by": null,
+          "metric_id": "paid_goods_amount",
+          "result_limit": 200,
+          "schema_version": "1",
+          "time_range": {
+            "end_at": "2026-12-01T00:00:00+08:00",
+            "reference_time": "2026-11-15T22:16:20.150456+08:00",
+            "start_at": "2026-11-01T00:00:00+08:00",
+            "timezone": "Asia/Shanghai"
+          },
+          "top_k": null
+        },
+        "actual_result": {
+          "periods": [
+            {
+              "group_key": null,
+              "null_reason": null,
+              "value": "10.00"
+            }
+          ],
+          "ranked_groups": null,
+          "series": [
+            {
+              "bucket_start": null,
+              "group_key": null,
+              "null_reason": null,
+              "value": "10.00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "deny-west",
+      "question": "2026年10月西部地区支付商品金额是多少？",
+      "scope": "east",
+      "initial": {
+        "status": "rejected",
+        "expected_status": "rejected",
+        "correct": false,
+        "errors": [
+          "deny-west-reason"
+        ]
+      },
+      "rerun": {
+        "status": "rejected",
+        "expected_status": "rejected",
+        "correct": true,
+        "errors": [],
+        "model_stages": [
+          "parse"
+        ],
+        "repair_count": 0,
+        "public_reason_check": {
+          "expected": "FORBIDDEN_SCOPE",
+          "actual": "FORBIDDEN_SCOPE"
+        },
+        "database_attempts": 0,
+        "published_result": null
+      }
+    }
+  ],
+  "installation": {
+    "status": "passed",
+    "fresh_volumes": true,
+    "fresh_host": false,
+    "different_version_refused": "commands/live-repeat/wrong-version-refused",
+    "checks": [
+      {
+        "id": "users_and_passwords_digest-preserved",
+        "equal": true
+      },
+      {
+        "id": "source_digest-preserved",
+        "equal": true
+      },
+      {
+        "id": "query_digest-preserved",
+        "equal": true
+      },
+      {
+        "id": "checkpoint_count-preserved",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "id": "phase_count-preserved",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "id": "dataset-preserved",
+        "equal": true
+      },
+      {
+        "id": "revision-preserved",
+        "actual": [
+          {
+            "version_num": "app_0013_phase_events"
+          }
+        ],
+        "expected": [
+          {
+            "version_num": "app_0013_phase_events"
+          }
+        ]
+      },
+      {
+        "id": "before-exact-business-data",
+        "equal": true
+      },
+      {
+        "id": "before-five-table-counts",
+        "actual": {
+          "customers": 6,
+          "order_items": 19,
+          "orders": 17,
+          "products": 9,
+          "refunds": 12
+        },
+        "expected": {
+          "customers": 6,
+          "order_items": 19,
+          "orders": 17,
+          "products": 9,
+          "refunds": 12
+        }
+      },
+      {
+        "id": "before-operator-no-evaluation-code",
+        "actual": {
+          "evals_present": false,
+          "oracle_present": false,
+          "tests_present": false
+        },
+        "expected": {
+          "evals_present": false,
+          "oracle_present": false,
+          "tests_present": false
+        }
+      },
+      {
+        "id": "before-empty-queries",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "id": "before-zero-model-calls",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "id": "before-zero-reservations",
+        "actual": {
+          "active_reserved": 0,
+          "logical_queued": 0
+        },
+        "expected": {
+          "active_reserved": 0,
+          "logical_queued": 0
+        }
+      },
+      {
+        "id": "after-repeat-exact-business-data",
+        "equal": true
+      },
+      {
+        "id": "after-repeat-five-table-counts",
+        "actual": {
+          "customers": 6,
+          "order_items": 19,
+          "orders": 17,
+          "products": 9,
+          "refunds": 12
+        },
+        "expected": {
+          "customers": 6,
+          "order_items": 19,
+          "orders": 17,
+          "products": 9,
+          "refunds": 12
+        }
+      },
+      {
+        "id": "after-repeat-operator-no-evaluation-code",
+        "actual": {
+          "evals_present": false,
+          "oracle_present": false,
+          "tests_present": false
+        },
+        "expected": {
+          "evals_present": false,
+          "oracle_present": false,
+          "tests_present": false
+        }
+      },
+      {
+        "id": "after-repeat-empty-queries",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "id": "after-repeat-zero-model-calls",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "id": "after-repeat-zero-reservations",
+        "actual": {
+          "active_reserved": 0,
+          "logical_queued": 0
+        },
+        "expected": {
+          "active_reserved": 0,
+          "logical_queued": 0
+        }
+      }
+    ]
+  },
+  "source_files_sha256": {
+    "followup-validation/review/ordinary-live/expected-precall.json": "384b25525ed7fb11290e4092d2263ff9f997142b229737033f9baa61d208d85f",
+    "followup-validation/review/ordinary-live/facts-final.json": "2cd72be4c99fb3ee514af6824cfeb33775444ca26db5ee447b90f79b1b2ddfe5",
+    "followup-validation/review/ordinary-live/independent-checks.json": "187344e0a6095504ae518e3d85a06448b05b4a7ac9322730d227d43306b55c90",
+    "followup-validation/review/ordinary-live/inputs.json": "025313f96d026ba64b851145de6cd5b175dd7d8039e6b4b8b7d47225a686141b",
+    "followup-validation/review/ordinary-live/installation-checks.json": "71c4fb7a861dd7779866c7891e4a0a8b2e2299cf570e1d2b2fea0e5e9d1464f4",
+    "followup-validation/review/ordinary-live/source-export.json": "7798637c5952bd49a60995e3459a0cfb8fe5a2f9af74b41c42d38d82d0d22ece",
+    "review/ordinary-live/expected-precall.json": "b47d00586cd8d21c78166e72c11cef7fdde778a5ec32bad1482ae61c3dec60c1",
+    "review/ordinary-live/facts-final.json": "992a1e29af3133d79451b6293994a557523630d3a1f7c421a79e561a6b713766",
+    "review/ordinary-live/independent-checks.json": "9215101ff6aaf01a3f7e71be56b18dca49c9d74001bedda4bdf2f2067a1bcd5a",
+    "review/ordinary-live/inputs.json": "025313f96d026ba64b851145de6cd5b175dd7d8039e6b4b8b7d47225a686141b",
+    "review/ordinary-live/source-export.json": "61a1a2522b2e75eba54eab97ea3f23a42a1a1eb151c466e8df68d0e6bc2f6c87"
+  }
+}

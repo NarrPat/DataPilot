@@ -1,0 +1,726 @@
+{
+  "schema_version": 1,
+  "source_sha256": "9fe707107c37d0028624cbe6998c25281adfb52b9f0a14e96adae08f9e95cfbb",
+  "human_reviewed": false,
+  "review_method": "AI authored specifications plus independent event oracle and hand anchors; seen regression, not blind",
+  "expected": [
+    {
+      "id": "paid-east",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_goods_amount",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": "214.69",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": "214.69",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "count-east",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_order_count",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": 7,
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": 7,
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "refund-east",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "refund_goods_amount",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": "136.00",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": "136.00",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "net-week-compare",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "period_net_goods_amount",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "week",
+        "group_by": "category",
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": {
+          "baseline_start_at": "2026-09-01T00:00:00+08:00",
+          "baseline_end_at": "2026-10-01T00:00:00+08:00",
+          "mode": "period_total"
+        },
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": "apparel",
+            "value": "-30.00",
+            "null_reason": null,
+            "baseline_value": "30.00",
+            "delta": "-60.00",
+            "pct_change": "-2.000000",
+            "comparison_reason": null,
+            "baseline_null_reason": null
+          },
+          {
+            "group_key": "books",
+            "value": "144.00",
+            "null_reason": null,
+            "baseline_value": "50.00",
+            "delta": "94.00",
+            "pct_change": "1.880000",
+            "comparison_reason": null,
+            "baseline_null_reason": null
+          },
+          {
+            "group_key": "electronics",
+            "value": "40.00",
+            "null_reason": null,
+            "baseline_value": "0.00",
+            "delta": "40.00",
+            "pct_change": null,
+            "comparison_reason": "BASELINE_NON_POSITIVE",
+            "baseline_null_reason": null
+          },
+          {
+            "group_key": "food",
+            "value": "0.00",
+            "null_reason": null,
+            "baseline_value": "0.00",
+            "delta": "0.00",
+            "pct_change": null,
+            "comparison_reason": "BASELINE_NON_POSITIVE",
+            "baseline_null_reason": null
+          },
+          {
+            "group_key": "home",
+            "value": "-80.00",
+            "null_reason": null,
+            "baseline_value": "120.00",
+            "delta": "-200.00",
+            "pct_change": "-1.666667",
+            "comparison_reason": null,
+            "baseline_null_reason": null
+          },
+          {
+            "group_key": "sports",
+            "value": "4.69",
+            "null_reason": null,
+            "baseline_value": "0.00",
+            "delta": "4.69",
+            "pct_change": null,
+            "comparison_reason": "BASELINE_NON_POSITIVE",
+            "baseline_null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": "2026-09-28T00:00:00+08:00",
+            "group_key": "apparel",
+            "value": "-30.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-09-28T00:00:00+08:00",
+            "group_key": "books",
+            "value": "60.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-09-28T00:00:00+08:00",
+            "group_key": "electronics",
+            "value": "40.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-09-28T00:00:00+08:00",
+            "group_key": "food",
+            "value": "0.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-10-05T00:00:00+08:00",
+            "group_key": "books",
+            "value": "-11.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-10-05T00:00:00+08:00",
+            "group_key": "home",
+            "value": "-80.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-10-12T00:00:00+08:00",
+            "group_key": "books",
+            "value": "100.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-10-19T00:00:00+08:00",
+            "group_key": "books",
+            "value": "-5.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": "2026-10-26T00:00:00+08:00",
+            "group_key": "sports",
+            "value": "4.69",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "aov-category",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_aov",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": "category",
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": "books",
+            "value": "42.50",
+            "null_reason": null
+          },
+          {
+            "group_key": "electronics",
+            "value": "40.00",
+            "null_reason": null
+          },
+          {
+            "group_key": "food",
+            "value": "0.00",
+            "null_reason": null
+          },
+          {
+            "group_key": "sports",
+            "value": "2.35",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": "books",
+            "value": "42.50",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "electronics",
+            "value": "40.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "food",
+            "value": "0.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "sports",
+            "value": "2.35",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "aov-all-regions",
+      "scope": "all",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_aov",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": "sales_region",
+        "filters": {
+          "sales_regions": [],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": "east",
+            "value": "30.67",
+            "null_reason": null
+          },
+          {
+            "group_key": "north",
+            "value": "35.00",
+            "null_reason": null
+          },
+          {
+            "group_key": "south",
+            "value": "50.00",
+            "null_reason": null
+          },
+          {
+            "group_key": "west",
+            "value": "300.00",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": "east",
+            "value": "30.67",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "north",
+            "value": "35.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "south",
+            "value": "50.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "west",
+            "value": "300.00",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "aov-zero",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_aov",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": [
+            "food"
+          ]
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": "0.00",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": "0.00",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "aov-empty",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_aov",
+        "time_range": {
+          "start_at": "2026-12-01T00:00:00+08:00",
+          "end_at": "2027-01-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": null,
+            "null_reason": "NO_PAID_ORDERS"
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": null,
+            "null_reason": "NO_PAID_ORDERS"
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "top-two",
+      "scope": "all",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_goods_amount",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": "category",
+        "filters": {
+          "sales_regions": [],
+          "category_codes": []
+        },
+        "comparison": {
+          "baseline_start_at": "2026-09-01T00:00:00+08:00",
+          "baseline_end_at": "2026-10-01T00:00:00+08:00",
+          "mode": "period_total"
+        },
+        "top_k": {
+          "count": 2,
+          "scope": "whole_current_period",
+          "order": "desc"
+        },
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": "beauty",
+            "value": "300.00",
+            "null_reason": null,
+            "baseline_value": "0.00",
+            "delta": "300.00",
+            "pct_change": null,
+            "comparison_reason": "BASELINE_NON_POSITIVE",
+            "baseline_null_reason": null
+          },
+          {
+            "group_key": "books",
+            "value": "170.00",
+            "null_reason": null,
+            "baseline_value": "50.00",
+            "delta": "120.00",
+            "pct_change": "2.400000",
+            "comparison_reason": null,
+            "baseline_null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": "beauty",
+            "value": "300.00",
+            "null_reason": null
+          },
+          {
+            "bucket_start": null,
+            "group_key": "books",
+            "value": "170.00",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": [
+          "beauty",
+          "books"
+        ]
+      }
+    },
+    {
+      "id": "clarify-net",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": true,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "period_net_goods_amount",
+        "time_range": {
+          "start_at": "2026-10-01T00:00:00+08:00",
+          "end_at": "2026-11-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": "78.69",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": "78.69",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "followup-november",
+      "scope": "east",
+      "expected_status": "completed",
+      "reason_code": null,
+      "requires_clarification": false,
+      "spec": {
+        "schema_version": "1",
+        "metric_id": "paid_goods_amount",
+        "time_range": {
+          "start_at": "2026-11-01T00:00:00+08:00",
+          "end_at": "2026-12-01T00:00:00+08:00",
+          "timezone": "Asia/Shanghai",
+          "reference_time": null
+        },
+        "grain": "total",
+        "group_by": null,
+        "filters": {
+          "sales_regions": [
+            "east"
+          ],
+          "category_codes": []
+        },
+        "comparison": null,
+        "top_k": null,
+        "result_limit": 200
+      },
+      "oracle": {
+        "periods": [
+          {
+            "group_key": null,
+            "value": "10.00",
+            "null_reason": null
+          }
+        ],
+        "series": [
+          {
+            "bucket_start": null,
+            "group_key": null,
+            "value": "10.00",
+            "null_reason": null
+          }
+        ],
+        "ranked_groups": null
+      }
+    },
+    {
+      "id": "deny-west",
+      "scope": "east",
+      "expected_status": "rejected",
+      "reason_code": "FORBIDDEN_SCOPE",
+      "requires_clarification": false,
+      "spec": null,
+      "oracle": null
+    }
+  ]
+}

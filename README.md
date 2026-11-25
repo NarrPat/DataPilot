@@ -4,9 +4,9 @@
 
 “十月华东的净额是多少？” 按期间商品净流入算，是 **214.69 − 136.00 = 78.69 元**。前一项是十月实付的商品金额，后一项是十月成功退回的钱。演示数据里就有九月买、十月退的订单，这笔退款该扣在十月。[演示源数据](fixtures/datapilot/demo_v1.source.json)
 
-![工作台回放：提问十月华东净额、选择期间商品净流入额、查看 SQL 和 78.69 元结果](docs/net-flow.png)
+[![从澄清到 78.69 元，点击播放中文工作台演示](docs/net-flow.png)](https://narrpat.github.io/DataPilot/)
 
-*同一条真实模型查询的工作台回放，图中保留了 SQL 节选。* [截图说明](docs/local-development.md#截图是怎样得到的)
+[播放 3 分 08 秒工作台演示（中文讲解与字幕）](https://narrpat.github.io/DataPilot/) · [核对十二题及容量测试结果](docs/verification.md) · [![公开仓库 CI](https://github.com/NarrPat/DataPilot/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NarrPat/DataPilot/actions/workflows/ci.yml)
 
 我把范围收在五张表、五个指标。做固定报表，用模板能省掉一次模型调用。这里保留模型写 SQL，是想看看用户已经说清了口径，模型还会在哪一步算错。
 
@@ -30,9 +30,9 @@
 
 **一列空时间，差点把同一品类拆成两行。** 有道题问“十月每周各品类的净流入，跟九月同品类整月相比怎么样？”十月要按周和品类合并支付、退款，九月只按品类。旧版漏掉了九月结果里的时间列。模型补上 `NULL` 时，顺手又把它写进了 `JOIN`。两个 `NULL` 做等值比较配不上，同一品类的支付和退款也会各占一行。那条 SQL 在执行前被拦下了。后来我给每一期单独列出了输出列和关联键。九月还是要输出空时间，但合并两侧金额只看品类。[生成两期约束的代码](datapilot/model/prompts.py)
 
-第一轮真实模型联调只过了 **11/12**。扣分的是一道权限题。华东账号要求查西部，系统拒绝了，根本没执行 SQL。翻回预期文件才发现，我填了内部异常名 `SCOPE_FORBIDDEN`，API 约定返回的却是 `FORBIDDEN_SCOPE`。下一轮先按公开接口写好预期，再把同样十二题各提交一次。**这次是 12/12**。十一道问数题都选对了口径，结果也和从订单、退款明细重算的数字一致。第十二题按预期拒绝越权。这一轮调用模型 24 次，没有触发模型的 SQL 修正。首轮的 11/12 仍按原样记录。
+第一轮真实模型联调只过了 **11/12**。扣分的是一道权限题。华东账号要求查西部，系统拒绝了，根本没执行 SQL。翻回预期文件才发现，我填了内部异常名 `SCOPE_FORBIDDEN`，API 约定返回的却是 `FORBIDDEN_SCOPE`。下一轮先按公开接口写好预期，再把同样十二题各提交一次。**这次是 12/12**。十一道问数题都选对了口径，结果也和从订单、退款明细重算的数字一致。第十二题按预期拒绝越权。这一轮调用模型 24 次，没有触发模型的 SQL 修正。首轮的 11/12 仍按原样记录。[逐题判定和调用数](docs/verification/model-cases.json)
 
-订单放大到十万笔，再把时间窗拉长，按月份和销售区域算客单价的 20 次正式执行全都超时。看执行计划，数据库在嵌套循环里反复扫商品明细。我保留原 SQL、数据和两秒上限，在只读事务里设了 `SET LOCAL enable_nestloop=off`，让优化器在有其他可行方案时避开嵌套循环。重跑这组查询，超时从 **20 次降到 0**，各组客单价也和订单明细对上了。再看整个容量矩阵，**480/480 次正式执行的结果都正确**，另有 96 次预热。[事务里的设置](datapilot/executor.py)
+订单放大到十万笔，再把时间窗拉长，按月份和销售区域算客单价的 20 次正式执行全都超时。看执行计划，数据库在嵌套循环里反复扫商品明细。我保留原 SQL、数据和两秒上限，在只读事务里设了 `SET LOCAL enable_nestloop=off`，让优化器在有其他可行方案时避开嵌套循环。重跑这组查询，超时从 **20 次降到 0**，各组客单价也和订单明细对上了。再看整个容量矩阵，**480/480 次正式执行的结果都正确**，另有 96 次预热。[修复前后 20 次执行及完整矩阵](docs/verification/sql-runs.json) · [事务里的设置](datapilot/executor.py)
 
 ## 跑起来
 
@@ -45,7 +45,7 @@ docker compose -p datapilot --env-file .env.local -f apps/datapilot/compose.yaml
 docker compose -p datapilot --env-file .env.local -f apps/datapilot/compose.yaml --profile application up -d --build api web
 ```
 
-打开 [本地工作台](http://localhost:18081)，用 `east_a` 登录。密码是初始化时随机生成的，在本机 `.env.local` 的 `DP_SEED_PASSWORD` 里。到这里就能看指标目录。上面的 78.69 元对应 `demo_v1`，首次安装请选择这个数据集。
+本机服务启动后打开[工作台](http://localhost:18081)，用 `east_a` 登录。密码是初始化时随机生成的，在本机 `.env.local` 的 `DP_SEED_PASSWORD` 里。到这里就能看指标目录。上面的 78.69 元对应 `demo_v1`，首次安装请选择这个数据集。
 
 **要让模型回答问题**，先在终端的隐藏输入框里填入自己的 DeepSeek API 密钥。调用使用你在提供方的额度。
 
@@ -69,8 +69,18 @@ docker compose -p datapilot --env-file .env.local -f apps/datapilot/compose.yaml
 
 使用 HTTPS 或想单独跑前端测试和构建，可以按[部署与前端验证说明](docs/local-development.md)操作。
 
-## 验证到哪一步了？
+## 克隆后怎样核对这些数字？
 
-- v6 本机回归通过了 **1,777 个 Python 测试节点**，其中 589 个带集成测试标记。另有 8 项前端状态测试和 19 项安装检查通过。
-- 连续运行固定 SQL 600 秒，**889/889 个任务**的结果与源行计算一致。这一轮没有调用模型。
-- 真实模型验收用的是预先写好的场景。尚无独立盲测准确率。
+安装 Python 3.12 和 uv，在仓库根目录执行下列命令。默认的 Python 测试使用合成源行，不需要数据库或模型密钥。
+
+```sh
+uv sync --locked
+uv run --locked pytest
+uv run --locked python docs/verification/check.py
+```
+
+公开版有 **158 项默认离线测试**，覆盖指标规格、支付与退款聚合、两期分组和 SQL 校验。最后一条命令会用源行重算十一道真实模型题的答案，同时核对拒绝题和固定 SQL 的运行记录。想看 PostgreSQL 实际返回什么，还可以启动 Compose，单独跑 **10 项集成测试**，用两个权限范围分别核对五个指标。[测试源码](tests/) · [数据库对账步骤](docs/local-development.md#用-postgresql-核对五个指标)
+
+2026 年 11 月 15 日的完整开发工程回归跑过 **1,777 个 Python 测试节点**，其中 589 个标记为集成测试，另有 8 项前端状态测试和 19 项安装检查。600 秒固定 SQL 稳态里，**889/889** 个任务的结果和源行计算一致，模型调用为零。每项的分母、来源和可复核程度都列在[验收索引](docs/verification.md)。
+
+十二道真实模型题是预设场景，尚无独立盲测准确率。历史回放中的数据版本标签有一处已知差异，已记录[影响和修复计划](docs/known-issues.md)。

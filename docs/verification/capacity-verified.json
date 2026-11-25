@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "batch": "DP-B378-capacity-fixed",
+  "configuration_count": 96,
+  "planned": 576,
+  "correct": 576,
+  "formal_planned": 480,
+  "formal_correct": 480,
+  "warmup_planned": 96,
+  "timed_out": 0,
+  "completed_wrong": 0,
+  "not_run": 0,
+  "provider_attempts": 0,
+  "statement_timeout_ms": 2000,
+  "postgres_cpus": 2,
+  "postgres_memory_bytes": 2147483648,
+  "standard_p95_eligible": false,
+  "human_reviewed": false,
+  "raw_summaries": [
+    "DP-B378-capacity-fixed\\raw\\capacity\\capacity-10000-skew50\\independent_summary.json",
+    "DP-B378-capacity-fixed\\raw\\capacity\\capacity-10000-uniform\\independent_summary.json",
+    "DP-B378-capacity-fixed\\raw\\capacity\\capacity-100000-skew50\\independent_summary.json",
+    "DP-B378-capacity-fixed\\raw\\capacity\\capacity-100000-uniform\\independent_summary.json"
+  ]
+}
