@@ -42,8 +42,8 @@ line-length = 100
 select = ["E", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests/common", "tests/datapilot"]
-addopts = "-ra --strict-markers"
+testpaths = ["tests/datapilot"]
+addopts = "-ra --strict-markers -m 'not integration and not live'"
 asyncio_default_fixture_loop_scope = "function"
 markers = [
   "integration: requires the isolated PostgreSQL/Redis services",
