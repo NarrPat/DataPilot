@@ -2,7 +2,7 @@
 
 ## 初始化 demo_v1 后，查询响应可能把数据版本标成 tiny_v1
 
-2026 年 11 月 15 日的真实模型验收留下了两份可以相互核对的记录。分析库装载的是 `demo_v1`，工作台查询响应的 `data_version` 却写成了 `tiny_v1`。这个字段会影响读者追溯一条回答使用的数据版本。按 `demo_v1` 源行独立计算，十月华东支付 21,469 分，成功退款 13,600 分，期间商品净流入仍为 **78.69 元**。[演示源行](../fixtures/datapilot/demo_v1.source.json) · [验收证据](verification.md)
+真实模型验收保留了数据库装载记录和同批查询响应。分析库装载的是 `demo_v1`，工作台查询响应的 `data_version` 却写成了 `tiny_v1`。这个字段会影响读者追溯一条回答使用的数据版本。按 `demo_v1` 源行独立计算，该用例指定账期内，华东实付 21,469 分，成功退款 13,600 分，期间商品净流入为 **78.69 元**。[演示源行](../fixtures/datapilot/demo_v1.source.json) · [验收证据](verification.md)
 
 普通安装入口把数据写入分析库，应用库另存查询状态。任务登记时优先读取应用库的 `published_data_version`，该值为空时回退到服务默认值。初装流程需要把分析库已经确认的版本传到应用库。[安装入口](../datapilot/db/install.py) · [任务登记](../datapilot/tasks/service.py)
 

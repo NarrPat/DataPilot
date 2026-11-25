@@ -158,7 +158,7 @@ export function Workbench({ api, user, queryId, navigationToken, draft, setDraft
       <form onSubmit={(event) => { event.preventDefault(); submit(draft); }}>
         <label htmlFor="question">运营问题</label>
         <textarea id="question" data-testid="question-input" value={draft} maxLength={2000} rows={3}
-          onChange={(event) => setDraft(event.target.value)} placeholder="例如：2026 年 10 月华东地区各品类支付商品金额是多少？与 9 月相比如何？" />
+          onChange={(event) => setDraft(event.target.value)} placeholder="例如：上月华东各品类的支付商品金额是多少？" />
         <div className="form-actions">
           <label className="check-label"><input type="checkbox" data-testid="followup-toggle" checked={Boolean(base)}
             disabled={!confirmed || create.isPending} onChange={(event) => setBase(event.target.checked && snapshot ? {
@@ -170,7 +170,7 @@ export function Workbench({ api, user, queryId, navigationToken, draft, setDraft
         {base && <p className="muted" data-testid="followup-base">基于 {base.query_id} · spec {base.spec_version}。追问会创建新查询，原结果保留。</p>}
       </form>
       {mayCreate && <div className="question-examples" aria-label="五个指标的示例问题">
-        <p className="muted">模拟电商数据 · 点击示例填入问题，再提交查询。示例固定使用 2026 年 10 月。</p>
+        <p className="muted">点击指标填入问题，查询月份已按样例数据选好，可在提交前修改。</p>
         <div className="form-actions">{exampleQuestions.map(({ metric, question }) =>
           <Button key={metric} size="small" disabled={create.isPending} data-testid={`example-${metric}`}
             onClick={() => { setDraft(question); setBase(null); create.reset(); }}>{metricNames[metric]}</Button>)}</div>

@@ -6,13 +6,13 @@
 python docs/verification/check.py
 ```
 
-要运行仓库本身的 Python 回归，请在根目录执行 `uv run pytest`。下面的 1,777 个节点等数字来自 2026-11-15 完整开发工程的本机记录。当前 checkout 的测试数以 pytest 当次收集的结果为准。[核账脚本](verification/check.py) · [独立源行算法](../tests/datapilot/semantic_oracle.py)
+要运行仓库本身的 Python 回归，请在根目录执行 `uv run pytest`。下文的 1,777 个节点来自完整开发工程的一轮回归。公开仓库的测试单独运行，pytest 会列出实际收集和通过的项数。[核账脚本](verification/check.py) · [独立源行算法](../tests/datapilot/semantic_oracle.py)
 
 ## 哪道题让首轮停在 11/12？
 
 在 [逐题结果](verification/model-cases.json) 搜索 `deny-west`。华东账号要求查询西部，两次运行都被拒绝。首轮唯一差异是期望的内部异常名 `SCOPE_FORBIDDEN` 和实际公开错误码 `FORBIDDEN_SCOPE`。第二轮在调用前固定公开错误码，将同样的 12 题各自重新提交一次，11 道题的规格和源行结果都正确，还有 1 次预期拒绝、数据库尝试 0 次。每题可看到模型阶段、最终状态和 SQL 修正次数。第二轮共 24 次模型调用，SQL 自动修正 0 次。
 
-可以先翻 `clarify-net`。题目是“2026 年 10 月华东净额是多少？”，记录了等待澄清后的再次解析和最终展示结果 78.69 元。核账脚本依据每题调用前冻结的规格从源数据重算，逐项比较整期值、时序和 Top K 顺序。规格中的参考时间在提交时由服务端赋值，核对其余规格字段时使用调用前的原值。两个批次使用过这些题，尚无独立盲测准确率。[调用前冻结的 12 份预期](verification/expected-precall.json) · [演示数据](../fixtures/datapilot/demo_v1.source.json)
+可以先翻 `clarify-net`。用户要查华东的净额，工作台请用户选口径，随后再解析，算出 78.69 元。核账脚本依据每题调用前冻结的规格从源数据重算，逐项比较整期值、时序和 Top K 顺序。规格中的参考时间在提交时由服务端赋值，核对其余规格字段时使用调用前的原值。两个批次使用过这些题，尚无独立盲测准确率。[调用前冻结的 12 份预期](verification/expected-precall.json) · [演示数据](../fixtures/datapilot/demo_v1.source.json)
 
 ## 十万订单的超时是怎样从 20 次降到 0 次的？
 

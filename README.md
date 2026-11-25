@@ -2,11 +2,11 @@
 
 **先把“净额”说清楚，再让模型写 SQL。**
 
-“十月华东的净额是多少？” 按期间商品净流入算，是 **214.69 − 136.00 = 78.69 元**。前一项是十月实付的商品金额，后一项是十月成功退回的钱。演示数据里就有九月买、十月退的订单，这笔退款该扣在十月。[演示源数据](fixtures/datapilot/demo_v1.source.json)
+查华东一个月的“净额”，上月买、本月退的商品该扣在哪个月？工作台会先请你选口径。按“期间商品净流入额”算，这笔退款要扣在本月。样例里的当月实付减去当月成功退款，是 **214.69 − 136.00 = 78.69 元**。[演示源数据](fixtures/datapilot/demo_v1.source.json)
 
-[![从澄清到 78.69 元，点击播放中文工作台演示](docs/net-flow.png)](https://narrpat.github.io/DataPilot/)
+![工作台的净额口径澄清选项和 78.69 元的查询结果](docs/net-flow.png)
 
-[播放 3 分 08 秒工作台演示（中文讲解与字幕）](https://narrpat.github.io/DataPilot/) · [核对十二题及容量测试结果](docs/verification.md) · [![公开仓库 CI](https://github.com/NarrPat/DataPilot/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NarrPat/DataPilot/actions/workflows/ci.yml)
+[核对十二题及容量测试结果](docs/verification.md) · [![公开仓库 CI](https://github.com/NarrPat/DataPilot/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NarrPat/DataPilot/actions/workflows/ci.yml)
 
 我把范围收在五张表、五个指标。做固定报表，用模板能省掉一次模型调用。这里保留模型写 SQL，是想看看用户已经说清了口径，模型还会在哪一步算错。
 
@@ -24,11 +24,11 @@
 
 数据来自客户、商品、订单、订单明细和退款五张表。每次问一个指标，可以按品类或销售区域拆分，看日、周、月趋势，选一个基期，或者取整期排名前几的分组。日期按上海时区算。[指标定义](apps/datapilot/catalog/metrics.v2.yaml)
 
-确认后的指标、时间窗和分组会记进 `QuerySpec`。SQLGlot 解析模型给出的 SQL，服务端核对表列、权限和指标口径，才会用 PostgreSQL 的授权视图执行查询。工作台能展开口径和 SQL，也可以接着问“那十一月呢？”
+确认后的指标、时间窗和分组会记进 `QuerySpec`。SQLGlot 解析模型给出的 SQL，服务端核对表列、权限和指标口径，才会用 PostgreSQL 的授权视图执行查询。工作台能展开口径和 SQL，也可以沿用已确认的口径，接着查下一个月。
 
 ## 踩过的坑
 
-**一列空时间，差点把同一品类拆成两行。** 有道题问“十月每周各品类的净流入，跟九月同品类整月相比怎么样？”十月要按周和品类合并支付、退款，九月只按品类。旧版漏掉了九月结果里的时间列。模型补上 `NULL` 时，顺手又把它写进了 `JOIN`。两个 `NULL` 做等值比较配不上，同一品类的支付和退款也会各占一行。那条 SQL 在执行前被拦下了。后来我给每一期单独列出了输出列和关联键。九月还是要输出空时间，但合并两侧金额只看品类。[生成两期约束的代码](datapilot/model/prompts.py)
+**一列空时间，差点把同一品类拆成两行。** 有道题要把本月每周各品类的净流入，跟上月同品类整月的净流入放在一起看。本月要按周和品类合并支付、退款，上月只按品类。旧版漏掉了上月结果里的时间列。模型补上 `NULL` 时，顺手又把它写进了 `JOIN`。两个 `NULL` 做等值比较配不上，同一品类的支付和退款也会各占一行。那条 SQL 在执行前被拦下了。后来我给每一期单独列出了输出列和关联键。上月还是要输出空时间，但合并两侧金额只看品类。[生成两期约束的代码](datapilot/model/prompts.py)
 
 第一轮真实模型联调只过了 **11/12**。扣分的是一道权限题。华东账号要求查西部，系统拒绝了，根本没执行 SQL。翻回预期文件才发现，我填了内部异常名 `SCOPE_FORBIDDEN`，API 约定返回的却是 `FORBIDDEN_SCOPE`。下一轮先按公开接口写好预期，再把同样十二题各提交一次。**这次是 12/12**。十一道问数题都选对了口径，结果也和从订单、退款明细重算的数字一致。第十二题按预期拒绝越权。这一轮调用模型 24 次，没有触发模型的 SQL 修正。首轮的 11/12 仍按原样记录。[逐题判定和调用数](docs/verification/model-cases.json)
 
@@ -59,7 +59,7 @@ python scripts/configure-deepseek.py --env-file .env.local --set-key
 docker compose -p datapilot --env-file .env.local -f apps/datapilot/compose.yaml --profile application --profile processing up -d --build api web worker control
 ```
 
-现在试着问“2026 年 10 月华东净额是多少”，在澄清选项里选“期间商品净流入额”。要复核退款那一项，可以再问“2026 年 10 月华东成功退款商品金额是多少”，应当看到 **136.00 元**。
+想复现开头的金额，可以复制净额用例的 `question` 发给工作台，遇到澄清时选“期间商品净流入额”。再复制同一账期的退款问题，就能单独核对扣掉的 **136.00 元**。[净额问题原文](docs/verification/model-cases.json#L799) · [退款问题原文](docs/verification/model-cases.json#L169)
 
 等查询跑完再停服务，下面的命令会保留数据卷。
 
@@ -81,6 +81,6 @@ uv run --locked python docs/verification/check.py
 
 公开版有 **158 项默认离线测试**，覆盖指标规格、支付与退款聚合、两期分组和 SQL 校验。最后一条命令会用源行重算十一道真实模型题的答案，同时核对拒绝题和固定 SQL 的运行记录。想看 PostgreSQL 实际返回什么，还可以启动 Compose，单独跑 **10 项集成测试**，用两个权限范围分别核对五个指标。[测试源码](tests/) · [数据库对账步骤](docs/local-development.md#用-postgresql-核对五个指标)
 
-2026 年 11 月 15 日的完整开发工程回归跑过 **1,777 个 Python 测试节点**，其中 589 个标记为集成测试，另有 8 项前端状态测试和 19 项安装检查。600 秒固定 SQL 稳态里，**889/889** 个任务的结果和源行计算一致，模型调用为零。每项的分母、来源和可复核程度都列在[验收索引](docs/verification.md)。
+完整开发工程的一轮回归跑过 **1,777 个 Python 测试节点**，其中 589 个标记为集成测试，另有 8 项前端状态测试和 19 项安装检查。600 秒固定 SQL 稳态里，**889/889** 个任务的结果和源行计算一致，模型调用为零。每项的分母、来源和可复核程度都列在[验收索引](docs/verification.md)。
 
-十二道真实模型题是预设场景，尚无独立盲测准确率。历史回放中的数据版本标签有一处已知差异，已记录[影响和修复计划](docs/known-issues.md)。
+十二道真实模型题是预设场景，尚无独立盲测准确率。那轮验收的查询响应有一处数据版本标签差异，已记录[影响和修复计划](docs/known-issues.md)。
